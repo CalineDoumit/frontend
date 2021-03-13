@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NurseMenu from './NurseMenuComponent';
 import PatientDetail from './PatientDetailComponent';
+import Signupp from './signup';
 import { ROBOTS } from '../shared/robots';
 import { PATIENTS } from '../shared/patients';
 import Header from './HeaderComponent';
@@ -43,6 +44,12 @@ class Main extends Component {
       );
     };
 
+    const SignUp = ({match}) => {
+      return(
+          <signup/>
+      );
+    };
+
     return (
       <div>
         <Header />
@@ -50,7 +57,8 @@ class Main extends Component {
           <Switch>
               <Route exact path='/nursemenu' component={() => <NurseMenu robots={this.props.robots} />} />
               <Route path='/nursemenu/:robotId' component={RobotWithId} />
-              <Redirect to="/nursemenu" />
+              <Route path='/signup' component={() => <Signupp  />} />
+              <Redirect to="/nursemenu"   />
           </Switch>
         </div>
       </div>

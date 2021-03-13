@@ -56,6 +56,9 @@ class Header extends Component {
                                 <span className="fa fa-sign-in fa-lg"></span> LogIn
                             </Button>
                         </NavItem>
+                        <NavItem>
+                                <NavLink className="nav-link"  to='/signup'> SignUp</NavLink>
+                            </NavItem>
                     </Nav>
                 </Navbar>
                 <Jumbotron>
