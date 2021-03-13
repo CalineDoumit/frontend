@@ -3,25 +3,25 @@ import { Card, CardImg, CardImgOverlay,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-    function RenderMenuItem ({dish}) {
+    function RenderNurseMenuItem ({robot}) {
         return (
             <Card>
-                <Link to={`/menu/${dish.id}`} >
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <Link to={`/nursemenu/${robot.id}`} >
+                    <CardImg width="100%" src={robot.image} alt={robot.name} />
                     <CardImgOverlay>
-                        <CardTitle>{dish.name}</CardTitle>
+                        <CardTitle>{robot.name}</CardTitle>
                     </CardImgOverlay>
                 </Link>
             </Card>
         );
     }
 
-    const Menu = (props) => {
+    const NurseMenu = (props) => {
 
-        const menu = props.dishes.map((dish) => {
+        const nursemenu = props.robots.map((robot) => {
             return (
-                <div className="col-12 col-md-5 m-1"  key={dish.id}>
-                    <RenderMenuItem dish={dish} />
+                <div className="col-12 col-md-5 m-1"  key={robot.id}>
+                    <RenderNurseMenuItem robot={robot} />
                 </div>
             );
         });
@@ -30,19 +30,18 @@ import { Link } from 'react-router-dom';
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>Menu</BreadcrumbItem>
+                        <BreadcrumbItem active>Robots in the hospital</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
-                        <h3>Menu</h3>
+                        <h3>Robots</h3>
                         <hr />
                     </div>                
                 </div>
                 <div className="row">
-                    {menu}
+                    {nursemenu}
                 </div>
             </div>
         );
     }
 
-export default Menu;
+export default NurseMenu;
