@@ -7,7 +7,6 @@ import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 import Header from './HeaderComponent';
-import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
@@ -66,7 +65,6 @@ class Main extends Component {
               <Redirect to="/home" />
           </Switch>
         </div>
-        <Footer />
       </div>
     );
   }

@@ -19,7 +19,7 @@
 .jumbotron {
   padding:70px 30px 70px 30px;
   margin:0px auto;
-  background: #9575CD !important;
+  background: #46525a !important;
   color:floralwhite;
 }
 
@@ -30,5 +30,5 @@ address{
 }
 
 .navbar-dark {
-  background-color: #512DA8;
+  background-color: #21282d;
 }
