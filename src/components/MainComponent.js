@@ -40,7 +40,7 @@ class Main extends Component {
     const RobotWithId = ({match}) => {
       return(
           <PatientDetail robot={this.props.robots.filter((robot) => robot.id === parseInt(match.params.robotId,10))[0]} 
-            patients={this.props.patients.filter((patient) => patient.robotId === parseInt(match.params.robotId,10))} />
+            patients={this.props.patients.filter((patient) => patient.robotId === parseInt(match.params.robotId,10))}/>
       );
     };
 
