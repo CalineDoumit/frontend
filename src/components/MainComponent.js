@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import NurseMenu from './NurseMenuComponent';
 import PatientDetail from './PatientDetailComponent';
 import Signupp from './signup';
-import { ROBOTS } from '../shared/robots';
-import { PATIENTS } from '../shared/patients';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
@@ -17,14 +15,6 @@ const mapStateToProps = state => {
 }
 
 class Main extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      robot:ROBOTS,
-      patient:PATIENTS
-    };
-  }
 
   render() {
     const NursePage = () => {
