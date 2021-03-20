@@ -6,8 +6,22 @@ export const fetchRobots = () => (dispatch) => {
     dispatch(robotsLoading(true));
 
     return fetch(baseUrl + 'robots')
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
     .then(response => response.json())
-    .then(robots => dispatch(addRobots(robots)));
+    .then(robots => dispatch(addRobots(robots)))
+    .catch(error => dispatch(robotsFailed(error.message)));
 }
 
 export const robotsLoading = () => ({
