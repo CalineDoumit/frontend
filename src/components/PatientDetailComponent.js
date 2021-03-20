@@ -4,12 +4,13 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 
 function RenderRobot({ robot }) {
     return (
         <Card>
-            <CardImg top src={robot.image} alt={robot.name} />
+            <CardImg top src={baseUrl+robot.image} alt={robot.name} />
             <CardBody>
                 <CardTitle>{robot.name}</CardTitle>
                 <CardText>{robot.description}</CardText>
@@ -42,6 +43,20 @@ function RenderPatients({ patients }) {
     );
 }
 
+function ButtonsForNurse() {
+    return (
+        <div>
+            <Button variant="contained" color="secondary">
+                <span class="fa fa-trash-o"></span> Delete
+            </Button>
+            <Button variant="contained" class="fa fa-camera-retro fa-lg">
+                <span class="fa fa-camera-retro fa-lg"></span> Open Camera of Patient
+            </Button>
+
+        </div>
+
+    )
+}
 
 
 const PatientDetail = (props) => {
@@ -89,9 +104,7 @@ const PatientDetail = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-12 col-md-5 m-1">
-                            <Button >
-                                <span>test</span>
-                            </Button>
+                            <ButtonsForNurse />
                         </div>
                     </div>
                 </div>
@@ -104,4 +117,6 @@ const PatientDetail = (props) => {
 }
 
 export default PatientDetail;
+
+
 

@@ -5,12 +5,13 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderNurseMenuItem({ robot }) {
     return (
         <Card>
             <Link to={`/nursemenu/${robot.id}`} >
-                <CardImg width="100%" src={robot.image} alt={robot.name} />
+                <CardImg width="100%" src={baseUrl+robot.image} alt={robot.name} />
                 <CardImgOverlay>
                     <CardTitle>{robot.name}</CardTitle>
                 </CardImgOverlay>

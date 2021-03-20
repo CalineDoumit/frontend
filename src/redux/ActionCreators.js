@@ -1,13 +1,13 @@
 import * as ActionTypes from './ActionTypes';
-import { ROBOTS } from '../shared/robots';
+import { baseUrl } from '../shared/baseUrl';
 
 export const fetchRobots = () => (dispatch) => {
 
     dispatch(robotsLoading(true));
 
-    setTimeout(() => {
-        dispatch(addRobots(ROBOTS));
-    }, 2000);
+    return fetch(baseUrl + 'robots')
+    .then(response => response.json())
+    .then(robots => dispatch(addRobots(robots)));
 }
 
 export const robotsLoading = () => ({
