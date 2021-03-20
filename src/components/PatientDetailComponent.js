@@ -3,6 +3,7 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem, Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 
 function RenderRobot({ robot }) {
@@ -45,41 +46,61 @@ function RenderPatients({ patients }) {
 
 const PatientDetail = (props) => {
     const robot = props.robot
-
-    return (
-        <div className="Jumbotron">
+    if (props.isLoading) {
+        return (
             <div className="container">
                 <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to="/nursemenu">Robot List </Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{robot.name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>{robot.name}</h3>
-                        <hr />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderRobot robot={props.robot} />
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderPatients patients={props.patients} />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <Button >
-                            <span>test</span> 
-                    </Button>
-                    </div>
+                    <Loading />
                 </div>
             </div>
+        );
+    }
+    else if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.robot != null) {
 
-        </div>
+        return (
+            <div className="Jumbotron">
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to="/nursemenu">Robot List </Link></BreadcrumbItem>
+                            <BreadcrumbItem active>{robot.name}</BreadcrumbItem>
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3>{robot.name}</h3>
+                            <hr />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderRobot robot={props.robot} />
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderPatients patients={props.patients} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            <Button >
+                                <span>test</span>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
-    );
+        );
+    }
 }
 
 export default PatientDetail;

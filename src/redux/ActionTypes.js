@@ -1,0 +1,3 @@
+export const ROBOTS_LOADING = 'ROBOTS_LOADING';
+export const ROBOTS_FAILED = 'ROBOTS_FAILED';
+export const ADD_ROBOTS = 'ADD_ROBOTS'; 

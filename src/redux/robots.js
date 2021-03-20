@@ -1,7 +1,18 @@
-import { ROBOTS } from '../shared/robots';
+import * as ActionTypes from './ActionTypes';
 
-export const Robots = (state = ROBOTS, action) => {
+export const Robots = (state = { isLoading: true,
+    errMess: null,
+    robots:[]}, action) => {
     switch (action.type) {
+        case ActionTypes.ADD_ROBOTS:
+            return {...state, isLoading: false, errMess: null, robots: action.payload};
+
+        case ActionTypes.ROBOTS_LOADING:
+            return {...state, isLoading: true, errMess: null, robots: []}
+
+        case ActionTypes.ROBOTS_FAILED:
+            return {...state, isLoading: false, errMess: action.payload};
+
         default:
           return state;
       }
