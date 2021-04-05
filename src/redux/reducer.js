@@ -1,9 +1,9 @@
-import { ROBOTS } from '../shared/robots';
+//import { ROBOTS } from '../shared/robots';
 import { PATIENTS } from '../shared/patients';
 
 
 export const initialState = {
-    robots:ROBOTS,
+    //robots:ROBOTS,
     patients:PATIENTS
 
 };

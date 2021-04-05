@@ -10,10 +10,10 @@ import { baseUrl } from '../shared/baseUrl';
 function RenderRobot({ robot }) {
     return (
         <Card>
-            <CardImg top src={baseUrl+robot.image} alt={robot.name} />
+            <CardImg top src='' alt={robot.roomNumber} />
             <CardBody>
                 <CardTitle>{robot.name}</CardTitle>
-                <CardText>{robot.description}</CardText>
+                {/*<CardText>{robot.description}</CardText>*/}
             </CardBody>
         </Card>
     )
@@ -87,10 +87,10 @@ const PatientDetail = (props) => {
                     <div className="row">
                         <Breadcrumb>
                             <BreadcrumbItem><Link to="/nursemenu">Robot List </Link></BreadcrumbItem>
-                            <BreadcrumbItem active>{robot.name}</BreadcrumbItem>
+                            <BreadcrumbItem active>{robot.roomNumber}</BreadcrumbItem>
                         </Breadcrumb>
                         <div className="col-12">
-                            <h3>{robot.name}</h3>
+                            <h3>{robot.roomNumber}</h3>
                             <hr />
                         </div>
                     </div>
