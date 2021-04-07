@@ -1,4 +1,4 @@
-//import { ROBOTS } from '../shared/robots';
+/*//import { ROBOTS } from '../shared/robots';
 import { PATIENTS } from '../shared/patients';
 
 
@@ -11,3 +11,4 @@ export const initialState = {
 export const Reducer = (state = initialState, action) => {
     return state;
 };
+*/

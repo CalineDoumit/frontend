@@ -23,10 +23,10 @@ function RenderPatients({ patients }) {
     const pat = patients.map(patient => {
         return (
             <li key={patient.id}>
-                <p>{patient.name}</p>
-                <p>{patient.description}</p>
+                <p>{patient.decription}</p>
+               {/* <p>{patient.description}</p>
                 <p>Nurse name: {patient.nurse}</p>
-                <p>temperatures: {patient.temperature}</p>
+        <p>temperatures: {patient.temperature}</p>*/}
             </li>
         )
     });
@@ -60,7 +60,7 @@ function ButtonsForNurse() {
 
 
 const PatientDetail = (props) => {
-    const robot = props.robot
+    //const robot = props.robots
     if (props.isLoading) {
         return (
             <div className="container">
@@ -79,27 +79,28 @@ const PatientDetail = (props) => {
             </div>
         );
     }
-    else if (props.robot != null) {
+    else if (props.robots != null) {
 
         return (
             <div className="Jumbotron">
                 <div className="container">
                     <div className="row">
                         <Breadcrumb>
-                            <BreadcrumbItem><Link to="/nursemenu">Robot List </Link></BreadcrumbItem>
-                            <BreadcrumbItem active>{robot.roomNumber}</BreadcrumbItem>
+                            <BreadcrumbItem><Link to='/nursemenu'>Robot List </Link></BreadcrumbItem>
+                            <BreadcrumbItem active>{props.robots.roomNumber}</BreadcrumbItem>
                         </Breadcrumb>
                         <div className="col-12">
-                            <h3>{robot.roomNumber}</h3>
+                            <h3>{props.robots.roomNumber}</h3>
                             <hr />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12 col-md-5 m-1">
-                            <RenderRobot robot={props.robot} />
+                            <RenderRobot robot={props.robots} />
                         </div>
                         <div className="col-12 col-md-5 m-1">
-                            <RenderPatients patients={props.patients} />
+                            <p>hello</p>
+                            {/*<RenderPatients patients={props.patients} />*/}
                         </div>
                     </div>
                     <div className="row">
@@ -114,6 +115,10 @@ const PatientDetail = (props) => {
 
         );
     }
+    else
+    return(
+        <div></div>
+    );
 }
 
 export default PatientDetail;

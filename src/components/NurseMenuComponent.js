@@ -29,7 +29,7 @@ const NurseMenu = (props) => {
             </div>
         );
     });
-    if (props.robots.isLoading) {
+    if (props.isLoading) {
         return (
             <div className="container">
                 <div className="row">
@@ -38,7 +38,7 @@ const NurseMenu = (props) => {
             </div>
         );
     }
-    else if (props.robots.errMess) {
+    else if (props.errMess) {
         return (
             <div className="container">
                 <div className="row">

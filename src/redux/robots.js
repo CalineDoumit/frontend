@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 
-export const Robots = (state = { isLoading: true,
+export const Robots = (state = { 
+    isLoading: true,
     errMess: null,
     robots:[]}, action) => {
     switch (action.type) {

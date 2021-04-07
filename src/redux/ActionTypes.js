@@ -1,3 +1,6 @@
 export const ROBOTS_LOADING = 'ROBOTS_LOADING';
 export const ROBOTS_FAILED = 'ROBOTS_FAILED';
 export const ADD_ROBOTS = 'ADD_ROBOTS'; 
+export const PATIENTS_LOADING = 'PATIENTS_LOADING';
+export const PATIENTS_FAILED = 'PATIENTS_FAILED';
+export const ADD_PATIENTS = 'ADD_PATIENTS'; 
