@@ -114,6 +114,7 @@ export const loginUser = (creds) => (dispatch) => {
           dispatch(receiveLogin(response));
           console.log("----------------------------");
           console.log("Login Successful");
+          console.log("user role : "+ response.userRole);
           console.log("----------------------------");
 
       }

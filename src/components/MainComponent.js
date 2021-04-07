@@ -6,7 +6,7 @@ import Login from './Login/LoginComponent';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchRobots, fetchPatients ,loginUser} from '../redux/ActionCreators';
+import { fetchRobots, fetchPatients, loginUser } from '../redux/ActionCreators';
 
 
 const mapStateToProps = state => {
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRobots: () => { dispatch(fetchRobots()) },
   fetchPatients: () => { dispatch(fetchPatients()) },
   loginUser: (creds) => dispatch(loginUser(creds)),
-  
+
 
 })
 
