@@ -76,3 +76,72 @@ export const addPatients = (patients) => ({
   payload: patients
 });
 
+export const loginUser = (creds) => (dispatch) => {
+  // We dispatch requestLogin to kickoff the call to the API
+  dispatch(requestLogin(creds))
+
+  return fetch(baseUrl + 'users/login', {
+      method: 'POST',
+      headers: { 
+          'Content-Type':'application/json' ,
+      },
+      body: JSON.stringify(creds)
+  })
+  .then(response => {
+          if (response.ok) {
+            console.log("ERRORRRRR 00000000000000000")
+            
+              return response;
+          } else {
+              var error = new Error('Error ' + response.status + ': ' + response.statusText);
+              error.response = response;
+              console.log("ERRORRRRR 1111111111111111111111111111")
+              throw error;
+          }
+      },
+      error => {
+        console.log("ERRORRRRR 2222222222222222222222222")
+
+          throw error;
+      })
+  .then(response => response.json())
+  .then(response => {
+      if (response.success) {
+          // If login was successful, set the token in local storage
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('creds', JSON.stringify(creds));
+          // Dispatch the success action
+          dispatch(receiveLogin(response));
+          console.log("----------------------------");
+          console.log("Login Successful");
+          console.log("----------------------------");
+
+      }
+      else {
+          var error = new Error('Error ' + response.status);
+          error.response = response;
+          throw error;
+      }
+  })
+  .catch(error => dispatch(loginError(error.message)))
+};
+export const requestLogin = (creds) => {
+  return {
+      type: ActionTypes.LOGIN_REQUEST,
+      creds
+  }
+}
+
+export const receiveLogin = (response) => {
+  return {
+      type: ActionTypes.LOGIN_SUCCESS,
+      token: response.token
+  }
+}
+
+export const loginError = (message) => {
+  return {
+      type: ActionTypes.LOGIN_FAILURE,
+      message
+  }
+}
