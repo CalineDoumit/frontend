@@ -147,3 +147,68 @@ export const loginError = (message) => {
       message
   }
 }
+
+
+export const fetchUsers = () => (dispatch) => {
+  dispatch(usersLoading());
+
+  return fetch(baseUrl + 'users')
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+      error => {
+        var errmess = new Error(error.message);
+        console.log("erreur 2: errmess");
+
+        throw errmess;
+      })
+    .then(response => response.json())
+    .then(robots => dispatch(addUsers(robots)))
+    .catch(error => dispatch(usersFailed(error.message)));
+}
+
+export const usersLoading = () => ({
+  type: ActionTypes.USERS_LOADING
+});
+
+export const usersFailed = (errmess) => ({
+  type: ActionTypes.USERS_FAILED,
+  payload: errmess
+});
+
+export const addUsers = (users) => ({
+  type: ActionTypes.ADD_USERS,
+  payload: users
+});
+
+/*
+export const fetchUser = (userId) => (dispatch) => {
+  dispatch(usersLoading());
+
+  return fetch(baseUrl + 'users')
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+      error => {
+        var errmess = new Error(error.message);
+        console.log("erreur 2: errmess");
+
+        throw errmess;
+      })
+    .then(response => response.json())
+    .then(robots => dispatch(addUsers(robots)))
+    .catch(error => dispatch(usersFailed(error.message)));
+}
+*/

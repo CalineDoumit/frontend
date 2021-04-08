@@ -9,8 +9,9 @@ class Login extends Component {
         super(props);
         this.state = {
             redirect: false,
-          };
-          this.handleLogin = this.handleLogin.bind(this);
+        };
+        this.role=this.props.auth.userRole;
+        this.handleLogin = this.handleLogin.bind(this);
     };
     componentDidMount() {
         //document.body.style.backgroundColor = "#464646"
@@ -20,23 +21,31 @@ class Login extends Component {
     handleLogin(event) {
         this.props.loginUser({ username: this.username.value, password: this.password.value });
         event.preventDefault();
-    }
+       console.log("-----------------");
+        console.log("role in handlelogin "+this.props.auth.userRole )
+       let uRole=localStorage.getItem('userRole');
+       console.log("-----------------");
+       console.log("uRole: " + uRole);
+       console.log("-----------------");
+       this.setState({
+        redirect: true
+    })
 
-    setRedirect = () => {
-            this.setState({
-                redirect: true
-              })
-      }
-
-      renderRedirect = () => {
-        console.log("redirect : "+this.state.redirect )
-        console.log("userRole : "+this.props.auth.userRole )
 
         if (this.state.redirect) {
-            if(this.props.auth.userRole==="nurse")
+            if (uRole=='admin')
+                return <Redirect to='/dashboard' />
+            else if (uRole=='nurse')
                 return <Redirect to='/nursemenu' />
+            else
+                return
         }
-      }
+
+
+    }
+
+
+        
     render() {
         return (
             <div>
@@ -68,8 +77,7 @@ class Login extends Component {
                                 <Input type="password" id="password" name="password"
                                     innerRef={(input) => this.password = input} />
                             </FormGroup>
-                            {this.renderRedirect()}
-                            <Button type="submit" value="submit" color="primary" onClick={this.setRedirect}>Login</Button>
+                            <Button type="submit" value="submit" color="primary" >Login</Button>
                         </Form>
                     </div>
                 </div>

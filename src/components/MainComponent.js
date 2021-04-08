@@ -6,20 +6,23 @@ import Login from './Login/LoginComponent';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchRobots, fetchPatients, loginUser } from '../redux/ActionCreators';
+import { fetchRobots, fetchPatients, loginUser,fetchUsers } from '../redux/ActionCreators';
+import DashboardHome from './Dashboard/DashboardHomeComponent';
 
 
 const mapStateToProps = state => {
   return {
     robots: state.robots,
     patients: state.patients,
-    auth: state.auth
+    auth: state.auth,
+    users:state.users
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRobots: () => { dispatch(fetchRobots()) },
   fetchPatients: () => { dispatch(fetchPatients()) },
+  fetchUsers: () => { dispatch(fetchUsers()) },
   loginUser: (creds) => dispatch(loginUser(creds)),
 
 
@@ -30,6 +33,7 @@ class Main extends Component {
   componentDidMount() {
     this.props.fetchRobots();
     this.props.fetchPatients();
+    this.props.fetchUsers();
 
   }
 
@@ -88,6 +92,7 @@ class Main extends Component {
           <Route exact path='/nursemenu' component={NursePage} />
           <Route exact path='/nursemenu/:robotId' component={RobotWithId} />
           <Route exact path='/signup' component={() => <Signupp />} />
+          <Route exact path='/dashboard' component={() => <DashboardHome users={this.props.users} />} />
           <Route exact path='/login' component={() => <Login auth={this.props.auth} loginUser={this.props.loginUser}/>} />
           <Redirect to="/login" />
         </Switch>
