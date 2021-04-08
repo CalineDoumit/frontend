@@ -89,7 +89,7 @@ class Main extends Component {
           <Route exact path='/nursemenu/:robotId' component={RobotWithId} />
           <Route exact path='/signup' component={() => <Signupp />} />
           <Route exact path='/login' component={() => <Login auth={this.props.auth} loginUser={this.props.loginUser}/>} />
-          <Redirect to="/nursemenu" />
+          <Redirect to="/login" />
         </Switch>
       </div>
     );
