@@ -10,7 +10,7 @@ class Login extends Component {
         this.state = {
             redirect: false,
           };
-        this.handleLogin = this.handleLogin.bind(this);
+          this.handleLogin = this.handleLogin.bind(this);
     };
     componentDidMount() {
         //document.body.style.backgroundColor = "#464646"
@@ -29,9 +29,12 @@ class Login extends Component {
       }
 
       renderRedirect = () => {
-          console.log("redirect : "+this.state.redirect )
+        console.log("redirect : "+this.state.redirect )
+        console.log("userRole : "+this.props.auth.userRole )
+
         if (this.state.redirect) {
-          return <Redirect to='/nursemenu' />
+            if(this.props.auth.userRole==="nurse")
+                return <Redirect to='/nursemenu' />
         }
       }
     render() {
