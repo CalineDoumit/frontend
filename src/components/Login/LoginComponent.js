@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Redirect } from 'react-router-dom'
 
 
 class Login extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            redirect: false,
+          };
         this.handleLogin = this.handleLogin.bind(this);
     };
     componentDidMount() {
-        document.body.style.backgroundColor = "#464646"
+        //document.body.style.backgroundColor = "#464646"
     }
 
 
@@ -19,6 +22,18 @@ class Login extends Component {
         event.preventDefault();
     }
 
+    setRedirect = () => {
+            this.setState({
+                redirect: true
+              })
+      }
+
+      renderRedirect = () => {
+          console.log("redirect : "+this.state.redirect )
+        if (this.state.redirect) {
+          return <Redirect to='/nursemenu' />
+        }
+      }
     render() {
         return (
             <div>
@@ -50,7 +65,8 @@ class Login extends Component {
                                 <Input type="password" id="password" name="password"
                                     innerRef={(input) => this.password = input} />
                             </FormGroup>
-                            <Button type="submit" value="submit" color="primary" >Login</Button>
+                            {this.renderRedirect()}
+                            <Button type="submit" value="submit" color="primary" onClick={this.setRedirect}>Login</Button>
                         </Form>
                     </div>
                 </div>
