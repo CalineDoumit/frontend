@@ -84,6 +84,11 @@ class DashNavbar extends Component {
             <span className="fa fa-heartbeat fa-lg"></span> Add Nurse
           </Button>
         </NavItem>
+        <NavItem>
+          <Button>
+            <span className="fa fa-heartbeat fa-lg"></span> Assign Robot
+          </Button>
+        </NavItem>
       </Navbar>
     );
   }
