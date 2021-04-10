@@ -38,44 +38,18 @@ class DashNavbar extends Component {
   }
 
   renderAddPatient(){
-    return (
-      <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-        <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
-        <ModalBody>
-          <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label htmlFor="username">Username</Label>
-              <Input type="text" id="username" name="username"
-                innerRef={(input) => this.username = input} />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="password">Password</Label>
-              <Input type="password" id="password" name="password"
-                innerRef={(input) => this.password = input} />
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" name="remember"
-                  innerRef={(input) => this.remember = input} />
-                      Remember me
-                  </Label>
-            </FormGroup>
-            <Button type="submit" value="submit" color="primary">Login</Button>
-          </Form>
-        </ModalBody>
-      </Modal>
-    );
   }
 
   render() {
     return (
+      <div>
       <Navbar className="navbar navbar-expand-lg navbar-dark ">
         <NavbarBrand className="mr-auto" >
           <img src='' height="30" width="41"
             alt="Admin" />
         </NavbarBrand>
         <NavItem>
-          <Button onClick={this.renderAddPatient} >
+          <Button onClick={this.toggleModal} >
             <span className="fa fa-heart fa-lg"></span> Add Patient
           </Button>
         </NavItem>
@@ -90,6 +64,66 @@ class DashNavbar extends Component {
           </Button>
         </NavItem>
       </Navbar>
+
+<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+<ModalHeader toggle={this.toggleModal}>Add Patient</ModalHeader>
+<ModalBody>
+  <Form onSubmit={this.handleSubmit}>
+    <FormGroup>
+      <Label htmlFor="username">Username</Label>
+      <Input type="text" id="username" name="username"
+        innerRef={(input) => this.username = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="password">Password</Label>
+      <Input type="password" id="password" name="password"
+        innerRef={(input) => this.password = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="firstname">Firstname</Label>
+      <Input type="text" id="firstname" name="firstname"
+        innerRef={(input) => this.firstname = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="lastname">Lastname</Label>
+      <Input type="text" id="lastname" name="lastname"
+        innerRef={(input) => this.lastname = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="phonenumber">Phone Number</Label>
+      <Input type="text" id="phonenumber" name="phonenumber"
+        innerRef={(input) => this.phonenumber = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="description">Description</Label>
+      <Input type="text" id="description" name="description"
+        innerRef={(input) => this.description = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="dateofBirth">Date Of Birth</Label>
+      <Input type="text" id="dateofBirth" name="dateofBirth"
+        innerRef={(input) => this.dateofBirth = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="allergies">Allergies</Label>
+      <Input type="text" id="allergies" name="allergies"
+        innerRef={(input) => this.allergies = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="emergencyContact">Emergency Contact</Label>
+      <Input type="text" id="emergencyContact" name="emergencyContact"
+        innerRef={(input) => this.emergencyContact = input} />
+    </FormGroup>
+    <FormGroup>
+      <Label htmlFor="bloodType">Blood Type</Label>
+      <Input type="text" id="bloodType" name="bloodType"
+        innerRef={(input) => this.phonenumber = input} />
+    </FormGroup>
+    <Button type="submit" color="primary">Add</Button>
+  </Form>
+</ModalBody>
+</Modal>
+</div>
     );
   }
 };
