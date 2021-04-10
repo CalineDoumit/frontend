@@ -31,7 +31,13 @@ class DashboardHome extends Component {
                                         <td>{user.firstname}</td>
                                         <td>{user.lastname}</td>
                                         <td>{user.phonenumber}</td>
-                                        <td><Button>DESACTIVATE</Button></td>
+                                        {
+                                            user.role==='patient'?
+                                            <td><Button >DESACTIVATE</Button></td>
+                                            :
+                                            <td></td>
+
+                                        }
                                     </tr>
                                 ))}
                             </tbody>
