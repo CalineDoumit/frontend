@@ -81,70 +81,70 @@ export const loginUser = (creds) => (dispatch) => {
   dispatch(requestLogin(creds))
 
   return fetch(baseUrl + 'users/login', {
-      method: 'POST',
-      headers: { 
-          'Content-Type':'application/json' ,
-      },
-      body: JSON.stringify(creds)
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(creds)
   })
-  .then(response => {
-          if (response.ok) {
-            console.log("ERRORRRRR 00000000000000000")
-            
-              return response;
-          } else {
-              var error = new Error('Error ' + response.status + ': ' + response.statusText);
-              error.response = response;
-              console.log("ERRORRRRR 1111111111111111111111111111")
-              throw error;
-          }
-      },
+    .then(response => {
+      if (response.ok) {
+        console.log("ERRORRRRR 00000000000000000")
+
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        console.log("ERRORRRRR 1111111111111111111111111111")
+        throw error;
+      }
+    },
       error => {
         console.log("ERRORRRRR 2222222222222222222222222")
 
-          throw error;
+        throw error;
       })
-  .then(response => response.json())
-  .then(response => {
+    .then(response => response.json())
+    .then(response => {
       if (response.success) {
-          // If login was successful, set the token in local storage
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('creds', JSON.stringify(creds));
-          localStorage.setItem('userRole', response.userRole);
-          // Dispatch the success action
-          dispatch(receiveLogin(response));
-          console.log("----------------------------");
-          console.log("Login Successful");
-          console.log("user role : "+ response.userRole);
-          console.log("----------------------------");
+        // If login was successful, set the token in local storage
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('creds', JSON.stringify(creds));
+        localStorage.setItem('userRole', response.userRole);
+        // Dispatch the success action
+        dispatch(receiveLogin(response));
+        console.log("----------------------------");
+        console.log("Login Successful");
+        console.log("user role : " + response.userRole);
+        console.log("----------------------------");
 
       }
       else {
-          var error = new Error('Error ' + response.status);
-          error.response = response;
-          throw error;
+        var error = new Error('Error ' + response.status);
+        error.response = response;
+        throw error;
       }
-  })
-  .catch(error => dispatch(loginError(error.message)))
+    })
+    .catch(error => dispatch(loginError(error.message)))
 };
 export const requestLogin = (creds) => {
   return {
-      type: ActionTypes.LOGIN_REQUEST,
-      creds
+    type: ActionTypes.LOGIN_REQUEST,
+    creds
   }
 }
 
 export const receiveLogin = (response) => {
   return {
-      type: ActionTypes.LOGIN_SUCCESS,
-      token: response.token
+    type: ActionTypes.LOGIN_SUCCESS,
+    token: response.token
   }
 }
 
 export const loginError = (message) => {
   return {
-      type: ActionTypes.LOGIN_FAILURE,
-      message
+    type: ActionTypes.LOGIN_FAILURE,
+    message
   }
 }
 
@@ -186,6 +186,33 @@ export const addUsers = (users) => ({
   type: ActionTypes.ADD_USERS,
   payload: users
 });
+
+export const postDeactivatePatient = (patientId) => (dispatch) => {
+  return fetch(baseUrl + 'patients/' + patientId  +'/deassignRobot', {
+    method: "POST",
+    body: '',
+    headers: {
+      'Content-Type':'application/json'
+    },
+    credentials: "same-origin"
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+      error => {
+        throw error;
+      })
+    .then(response => response.json())
+    .then(() => { console.log("Patient Desactivated"); })
+    .catch(error => {console.log("Patient Desactivated"+ error.message)})
+    //dispatch(favoritesFailed(error.message))
+}
 
 /*
 export const fetchUser = (userId) => (dispatch) => {

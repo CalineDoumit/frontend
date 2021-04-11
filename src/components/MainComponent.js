@@ -6,7 +6,7 @@ import Login from './Login/LoginComponent';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchRobots, fetchPatients, loginUser,fetchUsers } from '../redux/ActionCreators';
+import { fetchRobots, fetchPatients, loginUser,fetchUsers,postDeactivatePatient } from '../redux/ActionCreators';
 import DashboardHome from './Dashboard/DashboardHomeComponent';
 
 
@@ -24,6 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPatients: () => { dispatch(fetchPatients()) },
   fetchUsers: () => { dispatch(fetchUsers()) },
   loginUser: (creds) => dispatch(loginUser(creds)),
+  postDeactivatePatient : (patientId) => dispatch(postDeactivatePatient(patientId))
 
 
 })
@@ -93,7 +94,8 @@ class Main extends Component {
           <Route exact path='/nursemenu/:robotId' component={RobotWithId} />
           <Route exact path='/signup' component={() => <Signupp />} />
           <Route exact path='/dashboard' component={() => <DashboardHome users={this.props.users} />} />
-          <Route exact path='/login' component={() => <Login auth={this.props.auth} loginUser={this.props.loginUser}/>} />
+          <Route exact path='/login' component={() => <Login auth={this.props.auth} loginUser={this.props.loginUser}
+          postDeactivatePatient={this.props.postDeactivatePatient}/>} />
           <Redirect to="/login" />
         </Switch>
       </div>
