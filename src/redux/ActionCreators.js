@@ -188,6 +188,7 @@ export const addUsers = (users) => ({
 });
 
 export const postDeactivatePatient = (patientId) => (dispatch) => {
+  console.log("patientID"+patientId)
   return fetch(baseUrl + 'patients/' + patientId  +'/deassignRobot', {
     method: "POST",
     body: '',
@@ -239,3 +240,106 @@ export const fetchUser = (userId) => (dispatch) => {
     .catch(error => dispatch(usersFailed(error.message)));
 }
 */
+
+/*
+export const fetchGo = () => (dispatch) => {
+  return fetch(baseUrl + 'robots')
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+      error => {
+        var errmess = new Error(error.message);
+        console.log("erreur 2: errmess");
+
+        throw errmess;
+      })
+    .then(response => response.json())
+    .then(robots => dispatch(addRobots(robots)))
+    .catch(error => dispatch(robotsFailed(error.message)));
+}
+*/
+
+export const postPatient = (values) => (dispatch) => {
+  alert("values:",values)
+  return fetch(baseUrl + 'users/createPatient', {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+  })
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          throw error;
+    })
+  .then(response => response.json())
+  .then(response => { console.log('Patient', response);})
+  .catch(error =>  { console.log('Patient', error.message);})
+};
+
+
+/*export const postDeactivatePatient=(patientId)=>{
+  // POST request using fetch with error handling
+  const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json','Access-Control-Allow-Origin': '*'  },
+  };
+  fetch(baseUrl+patientId+'/deassignRobot', requestOptions)
+      .then(async response => {
+          const data = await response.json();
+          // check for error response
+          if (!response.ok) {
+              // get error message from body or default to response status
+              const error = (data && data.message) || response.status;
+              return Promise.reject(error);
+          }
+          this.setState({ postId: data.err })
+      })
+      .catch(error => {
+          this.setState({ errorMessage: error.toString() });
+          console.error('There was an error!', error);
+      });
+  }*/
+
+  export const fetchPatientsNotActive = () => (dispatch) => {
+  
+    return fetch(baseUrl + 'users/PatientIsNotActive')
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+        error => {
+          var errmess = new Error(error.message);
+          console.log("erreur 2: errmess");
+  
+          throw errmess;
+        })
+      .then(response => response.json())
+      .then(users => dispatch(addInactiveUsers(users)))
+     //.catch(error => dispatch(robotsFailed(error.message)));
+  }
+
+  export const addInactiveUsers = (users) => ({
+    type: ActionTypes.ADD_INACTIVEUSERS,
+    payload: users
+  });

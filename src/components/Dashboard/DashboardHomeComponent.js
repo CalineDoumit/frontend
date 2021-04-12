@@ -5,48 +5,23 @@ import Navbar from './DashNavbar';
 class DashboardHome extends Component {
     constructor(props) {
         super(props);
-        this.desactivatePatient=this.desactivatePatient.bind(this);
+        this.deactivatePatient=this.deactivatePatient.bind(this);
         
     }
     
-    /*desactivatePatient(patientId){
-        //this.props.postDeactivatePatient(patientId);
-        //alert("fetna bl desact"+patientId)
-    }*/
-    
-        desactivatePatient(){
-        // POST request using fetch with error handling
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json','Access-Control-Allow-Origin': '*'  },
-
-
-            body: JSON.stringify({ "patientId":"6070f6c4119f3e1b9c3935ec",
-            "robotnumber":1 })
-        };
-        fetch('https://localhost:3443/patients/6070f6c4119f3e1b9c3935ec/deassignRobot', requestOptions)
-            .then(async response => {
-                const data = await response.json();
-                // check for error response
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
-                }
-                this.setState({ postId: data.err })
-            })
-            .catch(error => {
-                this.setState({ errorMessage: error.toString() });
-                console.error('There was an error!', error);
-            });
-        }
+    deactivatePatient(patientId){
+        console.log("patient ID: "+patientId)
+        this.props.postDeactivatePatient(patientId);
+        alert("patient id: "+patientId)
+    }
+          
     
 
 
     render() {
         return (
             <div>
-                <Navbar />
+                <Navbar postPatient={this.props.postPatient} users={this.props.users} />
                 <div className="container">
                     <div className="py-4">
                         <h1>Users</h1>
@@ -72,7 +47,9 @@ class DashboardHome extends Component {
                                           user.role==='patient'?
                                           
                                               user.isActive===true ?  
-                                              <td><Button onClick={this.desactivatePatient} >DESACTIVATE</Button></td>
+                                              <td><Button 
+                                              onClick={()=>this.deactivatePatient(user.patient)} 
+                                              >DESACTIVATE</Button></td>
                                               :
                                               <td><Button color='primary'>not active</Button></td>
                                           

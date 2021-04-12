@@ -10,3 +10,5 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const USERS_LOADING = 'USERS_LOADING';
 export const USERS_FAILED = 'USERS_FAILED';
 export const ADD_USERS = 'ADD_USERS';
+export const ADD_INACTIVEUSERS = 'ADD_INACTIVEUSERS';
+
