@@ -292,6 +292,32 @@ export const postPatient = (values) => (dispatch) => {
   .catch(error =>  { console.log('Patient', error.message);})
 };
 
+export const postNurse = (values) => (dispatch) => {
+  alert("values:",values)
+  return fetch(baseUrl + 'users/createNurse', {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+  })
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          throw error;
+    })
+  .then(response => response.json())
+  .then(response => { console.log('Nurse', response);})
+  .catch(error =>  { console.log('Nurse', error.message);})
+};
 
 /*export const postDeactivatePatient=(patientId)=>{
   // POST request using fetch with error handling

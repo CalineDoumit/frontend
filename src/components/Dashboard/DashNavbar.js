@@ -48,16 +48,13 @@ class DashNavbar extends Component {
       bloodType:'',
       dateofBirth:'',
       emergencyContact:'',
-
-
-
     };
     this.toggleNav = this.toggleNav.bind(this);
     this.togglePatientModal = this.togglePatientModal.bind(this);
     this.toggleNurseModal = this.toggleNurseModal.bind(this);
     this.toggleAssignModal = this.toggleAssignModal.bind(this);
     this.handlePatientSubmit = this.handlePatientSubmit.bind(this);
-
+    this.handleNurseSubmit = this.handleNurseSubmit.bind(this);
   }
 
   handlePatientSubmit() {
@@ -73,6 +70,18 @@ class DashNavbar extends Component {
       bloodType:this.state.bloodType,
       dateofBirth:this.state.dateofBirth,
       emergencyContact:this.state.emergencyContact,
+    });
+  }
+
+  handleNurseSubmit() {
+    this.toggleNurseModal();
+    this.props.postNurse({
+      username:this.state.username,
+      password:this.state.password,
+      firstname:this.state.firstname,
+      lastname:this.state.lastname,
+      phonenumber:this.state.phonenumber,
+      description:this.state.description,
     });
   }
 
@@ -193,36 +202,36 @@ class DashNavbar extends Component {
         <Modal isOpen={this.state.isNurseModalOpen} toggle={this.toggleNurseModal}>
           <ModalHeader toggle={this.toggleNurseModal}>Add Nurse</ModalHeader>
           <ModalBody>
-            <Form>
+          <Form onSubmit={this.handleNurseSubmit}>
               <FormGroup>
                 <Label htmlFor="username">Username</Label>
                 <Input type="text" id="username" name="username"
-                  innerRef={(input) => this.username = input} />
+                  onChange={(event) => this.state.username = event.target.value} />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="password">Password</Label>
                 <Input type="password" id="password" name="password"
-                  innerRef={(input) => this.password = input} />
+                   onChange={(event) => this.state.password = event.target.value} />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="firstname">Firstname</Label>
                 <Input type="text" id="firstname" name="firstname"
-                  innerRef={(input) => this.firstname = input} />
+                   onChange={(event) => this.state.firstname = event.target.value} />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="lastname">Lastname</Label>
                 <Input type="text" id="lastname" name="lastname"
-                  innerRef={(input) => this.lastname = input} />
+                   onChange={(event) => this.state.lastname = event.target.value} />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="phonenumber">Phone Number</Label>
                 <Input type="text" id="phonenumber" name="phonenumber"
-                  innerRef={(input) => this.phonenumber = input} />
+                   onChange={(event) => this.state.phonenumber = event.target.value} />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="description">Description</Label>
                 <Input type="text" id="description" name="description"
-                  innerRef={(input) => this.description = input} />
+                  onChange={(event) => this.state.description = event.target.value} />
               </FormGroup>
               <Button type="submit" color="primary">Add</Button>
             </Form>
