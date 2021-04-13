@@ -8,27 +8,6 @@ import { baseUrl } from '../shared/baseUrl';
 import { Component } from 'react';
 
 
-
-function ButtonsForNurse() {
-    return (
-        <div>
-            <div>
-                <Button variant="contained" color="secondary">
-                    <span class="fa fa-car"></span> GO
-            </Button>
-                <Button variant="contained" class="fa fa-camera-retro fa-lg">
-                    <span class="fa fa-car fa-lg"></span> COME
-            </Button>
-            <Button variant="contained" color="secondary">
-                    <span class="fa fa-car"></span> STOP
-            </Button>
-            </div>
-        </div>
-
-    )
-}
-
-
 function RenderRobot({ robot }) {
     return (
         <Card>
@@ -41,74 +20,102 @@ function RenderRobot({ robot }) {
     )
 }
 
-const PatientDetail = (props) => {
 
-    if (props.isLoading) {
-        return (
-            <div className="container">
-                <div className="row">
-                    <Loading />
-                </div>
-            </div>
-        );
+
+class PatientDetail extends Component {
+    constructor(props) {
+        super(props);
+        this.RobotGo = this.RobotGo.bind(this);
     }
-    else if (props.errMess) {
-        return (
-            <div className="container">
-                <div className="row">
-                    <h4>{props.errMess}</h4>
-                </div>
-            </div>
-        );
+
+    RobotGo(patientId) {
+        console.log("patient ID: " + patientId)
+        this.props.fetchRobotGo(patientId);
+        alert("patient id: " + patientId)
     }
-    else if (props.robots != null) {
-        console.log('NAME:' + props.robots.roomNumber)
-        console.log('ocupee?:' + props.robots.isOccupied)
-        if (props.robots.isOccupied) {
+
+    render() {
+        /*if (this.props.robots.isLoading) {
             return (
-                <div className="Jumbotron">
-                    <div className="container">
-                        <div className="row">
-                            <Breadcrumb>
-                                <BreadcrumbItem><Link to='/nursemenu'>Robot List </Link></BreadcrumbItem>
-                                <BreadcrumbItem active>{props.robots.roomNumber}</BreadcrumbItem>
-                            </Breadcrumb>
-                            <div className="col-12">
-                                <h3>{props.robots.roomNumber}</h3>
-                                <hr />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-5 m-1">
-                                <RenderRobot robot={props.robots} />
-                            </div>
-                            <div className="col-12 col-md-5 m-1">
-                                <p>hello</p>
-                                {/*<RenderPatients patients={props.patients} />*/}
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-5 m-1">
-                                <ButtonsForNurse />
-                            </div>
-                        </div>
+                <div className="container">
+                    <div className="row">
+                        <Loading />
                     </div>
-
                 </div>
-
-
             );
         }
-        else {
+        else if (this.props.robots.errMess) {
             return (
-                <div>EMPTYYYYYYYYYYYYYYYYYYYYYYYYYYYY</div>
-            )
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.robots.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }*/
+         if (this.props.robots != null) {
+            console.log('NAME:' + this.props.robots.roomNumber)
+            console.log('ocupee?:' + this.props.robots.isOccupied)
+            if (this.props.robots.isOccupied) {
+                return (
+                    <div className="Jumbotron">
+                        <div className="container">
+                            <div className="row">
+                                <Breadcrumb>
+                                    <BreadcrumbItem><Link to='/nursemenu'>Robot List </Link></BreadcrumbItem>
+                                    <BreadcrumbItem active>{this.props.robots.roomNumber}</BreadcrumbItem>
+                                </Breadcrumb>
+                                <div className="col-12">
+                                    <h3>{this.props.robots.roomNumber}</h3>
+                                    <hr />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 col-md-5 m-1">
+                                    <RenderRobot robot={this.props.robots} />
+                                </div>
+                                <div className="col-12 col-md-5 m-1">
+                                    <p>hello</p>
+                                    {/*<RenderPatients patients={props.patients} />*/}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 col-md-5 m-1">
+                                    <div>
+                                        <div>
+                                            <Button variant="contained" color="secondary" onClick={() => this.RobotGo(this.props.robots.patient)} >
+                                                <span class="fa fa-car"></span> GO
+                </Button>
+                                            <Button variant="contained" class="fa fa-camera-retro fa-lg">
+                                                <span class="fa fa-car fa-lg"></span> COME
+                </Button>
+                                            <Button variant="contained" color="secondary">
+                                                <span class="fa fa-car"></span> STOP
+                </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                );
+            }
+            else {
+                return (
+                    <div>EMPTYYYYYYYYYYYYYYYYYYYYYYYYYYYY</div>
+                )
+            }
         }
+        else
+            return (
+                <div></div>
+            );
     }
-    else
-        return (
-            <div></div>
-        );
+
 }
 
 export default PatientDetail;
