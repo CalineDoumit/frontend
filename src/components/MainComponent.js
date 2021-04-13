@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
   postDeactivatePatient : (patientId) => dispatch(postDeactivatePatient(patientId)),
   postPatient: (values) => dispatch(postPatient(values)),
   postNurse: (values) => dispatch(postNurse(values)),
-  fetchRobotGo: () => { dispatch(fetchRobotGo()) },
+  fetchRobotGo: (robotId) => { dispatch(fetchRobotGo(robotId)) },
 
 
 })

@@ -242,9 +242,9 @@ export const fetchUser = (userId) => (dispatch) => {
 */
 
 
-export const fetchRobotGo = (patientId) => (dispatch) => {
+export const fetchRobotGo = (robotId) => (dispatch) => {
   alert("fetna bel fetch")
-  return fetch(baseUrl + 'patients/' + patientId+ '/RobotGo')
+  return fetch(baseUrl + 'patients/' + robotId+ '/RobotGo')
 
   .then(response => {
       if (response.ok) {
@@ -260,8 +260,8 @@ export const fetchRobotGo = (patientId) => (dispatch) => {
     })
 
   .then(response => response.json())
-  .then(() => { console.log('Order GO Failed!'); })
-  .catch(error =>{console.log("Patient Desactivated"+ error.message)})
+  .then(() => { console.log('Order GO Success!'); })
+  .catch(error =>{console.log("Order GO Fail!"+ error.message)})
 }
 
 export const postPatient = (values) => (dispatch) => {
