@@ -19,11 +19,10 @@ class Login extends Component {
 
 
     handleLogin(event) {
-        this.props.loginUser({ username: this.username.value, password: this.password.value });
+        this.props.loginUser({ username: this.username.value, password: this.password.value })
+ // TODO use .then( (response) => { to handle parrallelism, you can even bypass storing the userRole in redux
         event.preventDefault();
-       console.log("-----------------");
-        console.log("role in handlelogin "+this.props.auth.userRole )
-       let uRole=localStorage.getItem('userRole');
+       let uRole = this.props.auth.userRole;
        console.log("-----------------");
        console.log("uRole: " + uRole);
        console.log("-----------------");
@@ -34,6 +33,8 @@ class Login extends Component {
 
         if (this.state.redirect) {
             if (uRole=='admin')
+                // TODO only modify this code when you are sure that the uRole is correct!
+                // or history.push 
                 return <Redirect to='/dashboard' />
             else if (uRole=='nurse')
                 return <Redirect to='/nursemenu' />
@@ -86,4 +87,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Login; // TODO connect to login component to the redux store
