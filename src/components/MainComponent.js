@@ -7,7 +7,8 @@ import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchRobots, fetchPatients, loginUser,fetchUsers,
-        postDeactivatePatient,postPatient , postNurse,fetchRobotGo} from '../redux/ActionCreators';
+        postDeactivatePatient,postPatient , postNurse,
+        fetchRobotGo,fetchRobotCome,fetchRobotStop} from '../redux/ActionCreators';
 import DashboardHome from './Dashboard/DashboardHomeComponent';
 
 
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch) => ({
   postPatient: (values) => dispatch(postPatient(values)),
   postNurse: (values) => dispatch(postNurse(values)),
   fetchRobotGo: (robotId) => { dispatch(fetchRobotGo(robotId)) },
+  fetchRobotCome: (robotId) => { dispatch(fetchRobotCome(robotId)) },
+  fetchRobotStop: (robotId) => { dispatch(fetchRobotStop(robotId)) },
+
 
 
 })
@@ -80,6 +84,8 @@ class Main extends Component {
               patients={this.props.patients.patients.filter((patient) =>patient._id === parseInt(match.params.patient, 10))[0]}  
               //patients={this.props.robots.robots.filter((patient) => patient._id === parseInt("6068f08b8893c11b8cbbb276", 10))[0]}
               fetchRobotGo={this.props.fetchRobotGo}
+              fetchRobotCome={this.props.fetchRobotCome}
+              fetchRobotStop={this.props.fetchRobotStop}
             />
           </div>
         </div>

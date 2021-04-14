@@ -26,11 +26,25 @@ class PatientDetail extends Component {
     constructor(props) {
         super(props);
         this.RobotGo = this.RobotGo.bind(this);
+        this.RobotCome = this.RobotCome.bind(this);
+        this.RobotStop= this.RobotStop.bind(this);
     }
 
     RobotGo(robotId) {
         console.log("patient ID: " + robotId)
         this.props.fetchRobotGo(robotId);
+        alert("patient id: " + robotId)
+    }
+
+    RobotCome(robotId) {
+        console.log("patient ID: " + robotId)
+        this.props.fetchRobotCome(robotId);
+        alert("patient id: " + robotId)
+    }
+ 
+    RobotStop(robotId) {
+        console.log("patient ID: " + robotId)
+        this.props.fetchRobotStop(robotId);
         alert("patient id: " + robotId)
     }
 
@@ -86,10 +100,10 @@ class PatientDetail extends Component {
                                             <Button variant="contained" color="secondary" onClick={() => this.RobotGo(this.props.robots.number)} >
                                                 <span class="fa fa-car"></span> GO
                 </Button>
-                                            <Button variant="contained" class="fa fa-camera-retro fa-lg">
+                                            <Button variant="contained" class="fa fa-camera-retro fa-lg" onClick={() => this.RobotCome(this.props.robots.number)}>
                                                 <span class="fa fa-car fa-lg"></span> COME
                 </Button>
-                                            <Button variant="contained" color="secondary">
+                                            <Button variant="contained" color="secondary" onClick={() => this.RobotStop(this.props.robots.number)}>
                                                 <span class="fa fa-car"></span> STOP
                 </Button>
                                         </div>

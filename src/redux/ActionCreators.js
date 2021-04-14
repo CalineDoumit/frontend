@@ -244,7 +244,7 @@ export const fetchUser = (userId) => (dispatch) => {
 
 export const fetchRobotGo = (robotId) => (dispatch) => {
   alert("fetna bel fetch")
-  return fetch(baseUrl + 'patients/' + robotId+ '/RobotGo')
+  return fetch(baseUrl + 'robots/' + robotId+ '/RobotGo')
 
   .then(response => {
       if (response.ok) {
@@ -262,6 +262,50 @@ export const fetchRobotGo = (robotId) => (dispatch) => {
   .then(response => response.json())
   .then(() => { console.log('Order GO Success!'); })
   .catch(error =>{console.log("Order GO Fail!"+ error.message)})
+}
+
+export const fetchRobotCome = (robotId) => (dispatch) => {
+  alert("fetna bel fetch")
+  return fetch(baseUrl + 'robots/' + robotId+ '/RobotCome')
+
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          throw error;
+    })
+
+  .then(response => response.json())
+  .then(() => { console.log('Order COME Success!'); })
+  .catch(error =>{console.log("Order COME Fail!"+ error.message)})
+}
+
+export const fetchRobotStop = (robotId) => (dispatch) => {
+  alert("fetna bel fetch")
+  return fetch(baseUrl + 'robots/' + robotId+ '/RobotStop')
+
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          throw error;
+    })
+
+  .then(response => response.json())
+  .then(() => { console.log('Order STOP Success!'); })
+  .catch(error =>{console.log("Order STOP Fail!"+ error.message)})
 }
 
 export const postPatient = (values) => (dispatch) => {
