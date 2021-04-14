@@ -11,6 +11,7 @@ class Header extends Component {
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
         this.state = {
             isNavOpen: false,
             isModalOpen: false
@@ -35,6 +36,11 @@ class Header extends Component {
 
     }
 
+    handleLogout() {
+        this.props.logoutUser();
+    }
+
+
     render() {
         return(
             <div>
@@ -51,13 +57,10 @@ class Header extends Component {
                         </Collapse>
                     </div>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <Button outline onClick={this.toggleModal}>
-                                <span className="fa fa-sign-in fa-lg"></span> LogIn
-                            </Button>
-                        </NavItem>
-                        <NavItem>
-                                <NavLink className="nav-link"  to='/signup'> SignUp</NavLink>
+                            <NavItem>
+                            <Button outline onClick={this.handleLogout}>
+                                            <span className="fa fa-sign-out fa-lg"></span> Logout
+                                        </Button>
                             </NavItem>
                     </Nav>
                 </Navbar>

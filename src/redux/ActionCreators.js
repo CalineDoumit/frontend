@@ -412,3 +412,26 @@ export const postNurse = (values) => (dispatch) => {
     type: ActionTypes.ADD_INACTIVEUSERS,
     payload: users
   });
+
+
+  
+export const requestLogout = () => {
+  return {
+    type: ActionTypes.LOGOUT_REQUEST
+  }
+}
+
+export const receiveLogout = () => {
+  return {
+    type: ActionTypes.LOGOUT_SUCCESS
+  }
+}
+
+// Logs the user out
+export const logoutUser = () => (dispatch) => {
+  dispatch(requestLogout())
+  localStorage.removeItem('token');
+  localStorage.removeItem('creds');
+  localStorage.removeItem('userRole');
+  dispatch(receiveLogout())
+}

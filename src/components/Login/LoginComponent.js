@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Auth } from "../../redux/auth";
+import { withRouter } from "react-router-dom";
+
 
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false,
+            //redirect: false,
+            uRole: '',
         };
-        this.role=this.props.auth.userRole;
+
         this.handleLogin = this.handleLogin.bind(this);
     };
     componentDidMount() {
@@ -19,33 +23,40 @@ class Login extends Component {
 
 
     handleLogin(event) {
-        this.props.loginUser({ username: this.username.value, password: this.password.value });
+        this.props.loginUser({ username: this.username.value, password: this.password.value })
+            .then(() => {
+                console.log("Step 1: setting state")
+                this.setState({
+                    uRole: localStorage.getItem('userRole')
+                });
+                console.log("step 2 alerts")
+                alert("uRole = " + localStorage.getItem('userRole'));
+                console.log("step 3 redirecting")
+                if (localStorage.getItem('userRole') == 'admin')
+                    {console.log("ATTENTION mch lezim nfout hon")
+                   this.props.history.push("/dashboard");
+                return;}
+                else if (localStorage.getItem('userRole') == 'nurse')
+                    {console.log("step 4 we entered the correct if")
+                    this.props.history.push("/nursemenu");
+                return;}
+                else
+                    return
+            })
         event.preventDefault();
-       console.log("-----------------");
-        console.log("role in handlelogin "+this.props.auth.userRole )
-       let uRole=localStorage.getItem('userRole');
-       console.log("-----------------");
-       console.log("uRole: " + uRole);
-       console.log("-----------------");
-       this.setState({
-        redirect: true
-    })
+        /* this.setState({
+             redirect: true
+         })*/
 
+        //if (this.state.redirect) {
 
-        if (this.state.redirect) {
-            if (uRole=='admin')
-                return <Redirect to='/dashboard' />
-            else if (uRole=='nurse')
-                return <Redirect to='/nursemenu' />
-            else
-                return
-        }
+        //}
 
 
     }
 
 
-        
+
     render() {
         return (
             <div>
@@ -86,4 +97,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

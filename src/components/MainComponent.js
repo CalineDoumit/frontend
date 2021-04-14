@@ -6,7 +6,7 @@ import Login from './Login/LoginComponent';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchRobots, fetchPatients, loginUser,fetchUsers,
+import { fetchRobots, fetchPatients, loginUser,logoutUser,fetchUsers,
         postDeactivatePatient,postPatient , postNurse,
         fetchRobotGo,fetchRobotCome,fetchRobotStop} from '../redux/ActionCreators';
 import DashboardHome from './Dashboard/DashboardHomeComponent';
@@ -32,9 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRobotGo: (robotId) => { dispatch(fetchRobotGo(robotId)) },
   fetchRobotCome: (robotId) => { dispatch(fetchRobotCome(robotId)) },
   fetchRobotStop: (robotId) => { dispatch(fetchRobotStop(robotId)) },
-
-
-
+  logoutUser: () => dispatch(logoutUser()),
 })
 
 
@@ -51,7 +49,8 @@ class Main extends Component {
       return (
         <div>
           <div>
-            <Header />
+              
+            <Header logoutUser={this.props.logoutUser}   />
           </div>
           <div>
 
@@ -60,6 +59,7 @@ class Main extends Component {
               isLoading={this.props.robots.isLoading}
               robotsErrMess={this.props.robots.errMess}
             //patient={this.props.patients.patients.filter((patient) => patient.featured)[0]}
+
 
             />
           </div>
@@ -105,7 +105,7 @@ class Main extends Component {
           <Route exact path='/nursemenu/:robotId' component={RobotWithId} />
           <Route exact path='/signup' component={() => <Signupp />} />
           <Route exact path='/dashboard' component={() => <DashboardHome users={this.props.users} postDeactivatePatient={this.props.postDeactivatePatient} 
-          postPatient={this.props.postPatient} postNurse={this.props.postNurse} />} />
+          postPatient={this.props.postPatient} postNurse={this.props.postNurse}  logoutUser={this.props.logoutUser}  />} />
           <Route exact path='/login' component={() => <Login auth={this.props.auth} loginUser={this.props.loginUser}
           />} />
           <Redirect to="/login" />

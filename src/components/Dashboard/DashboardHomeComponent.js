@@ -21,7 +21,7 @@ class DashboardHome extends Component {
     render() {
         return (
             <div>
-                <Navbar postPatient={this.props.postPatient} users={this.props.users} postNurse={this.props.postNurse}/>
+                <Navbar postPatient={this.props.postPatient} users={this.props.users} postNurse={this.props.postNurse} logoutUser={this.props.logoutUser}/>
                 <div className="container">
                     <div className="py-4">
                         <h1>Users</h1>
