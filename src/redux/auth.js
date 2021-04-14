@@ -8,6 +8,7 @@ export const Auth = (state = {
         isAuthenticated: localStorage.getItem('token') ? true : false,
         token: localStorage.getItem('token'),
         user: localStorage.getItem('creds') ? JSON.parse(localStorage.getItem('creds')) : null,
+        userRole : null,
         errMess: null
     }, action) => {
     switch (action.type) {
@@ -15,6 +16,7 @@ export const Auth = (state = {
             return {...state,
                 isLoading: true,
                 isAuthenticated: false,
+                userRole : null,
                 user: action.creds,
             };
         case ActionTypes.LOGIN_SUCCESS:
@@ -22,6 +24,7 @@ export const Auth = (state = {
                 isLoading: false,
                 isAuthenticated: true,
                 errMess: '',
+                userRole : action.user.role,
                 token: action.token,
 
             };
@@ -29,6 +32,7 @@ export const Auth = (state = {
             return {...state,
                 isLoading: false,
                 isAuthenticated: false,
+                userRole : null,
                 errMess: action.message,
             };
         default:
