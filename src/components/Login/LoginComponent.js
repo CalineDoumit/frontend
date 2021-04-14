@@ -19,7 +19,8 @@ class Login extends Component {
 
 
     handleLogin(event) {
-        this.props.loginUser({ username: this.username.value, password: this.password.value });
+        this.props.loginUser({ username: this.username.value, password: this.password.value })
+ // TODO use .then( (response) => { to handle parrallelism, you can even bypass storing the userRole in redux
         event.preventDefault();
        let uRole = this.props.auth.userRole;
        console.log("-----------------");
