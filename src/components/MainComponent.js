@@ -81,7 +81,8 @@ class Main extends Component {
               robots={this.props.robots.robots.filter((robot) => robot._id === match.params.robotId)[0]}
               isLoading={this.props.robots.isLoading}
               errMess={this.props.robots.errMess}
-              patients={this.props.patients.patients.filter((patient) =>patient._id === parseInt(match.params.patient, 10))[0]}  
+              patients={this.props.patients.patients}
+              //.filter((patient) =>patient._id === match.params.patientId)}
               //patients={this.props.robots.robots.filter((patient) => patient._id === parseInt("6068f08b8893c11b8cbbb276", 10))[0]}
               fetchRobotGo={this.props.fetchRobotGo}
               fetchRobotCome={this.props.fetchRobotCome}

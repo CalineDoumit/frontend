@@ -435,3 +435,35 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('userRole');
   dispatch(receiveLogout())
 }
+
+
+export const fetchCorrespondingPatient = (robotId) => (dispatch) => {
+  //dispatch(patientsLoading());
+  //alert("robotID: "+ robotId)
+  return fetch(baseUrl +'robots/'+robotId+ '/getCorrespondingPatient')
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+      error => {
+        var errmess = new Error(error.message);
+        console.log("erreur 2: errmess");
+
+        throw errmess;
+      })
+    .then(response => response.json())
+    .then(patient => dispatch(addCorrespondingPatient(patient)))
+    .catch(error => dispatch(patientsFailed(error.message)));
+}
+
+export const addCorrespondingPatient = (patient) => {
+  return {
+    type: ActionTypes.ADD_CORRESPONDINGPATIENT,
+    payload:patient
+  }
+}

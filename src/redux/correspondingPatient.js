@@ -1,4 +1,4 @@
-import * as ActionTypes from './ActionTypes';
+/*import * as ActionTypes from './ActionTypes';
 
 export const CorrespondingPatient = (state = { 
     isLoading: true,
@@ -18,3 +18,4 @@ export const CorrespondingPatient = (state = {
           return state;
       }
 }; 
+*/
