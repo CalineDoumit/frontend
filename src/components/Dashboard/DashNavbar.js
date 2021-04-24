@@ -6,21 +6,8 @@ import {
   FormGroup, Input, Label
 } from 'reactstrap';
 import { DropdownMultiple, Dropdown } from 'reactjs-dropdown-component';
+import { InsertEmoticon, ThreeSixtyOutlined } from "@material-ui/icons";
 
-const locations = [
-  {
-    label: 'New York',
-    value: 'newYork',
-  },
-  {
-    label: 'Oslo',
-    value: 'oslo',
-  },
-  {
-    label: 'Istanbul',
-    value: 'istanbul',
-  }
-];
 const mapStateToProps = state => {
   return {
     users: state.users
@@ -48,6 +35,10 @@ class DashNavbar extends Component {
       bloodType: '',
       dateofBirth: '',
       emergencyContact: '',
+      listOfInactivePatients:[],
+      listOfInactiveRooms:[],
+      chosenRobotid:0,
+      chosenPatientid:0,
     };
     this.toggleNav = this.toggleNav.bind(this);
     this.togglePatientModal = this.togglePatientModal.bind(this);
@@ -56,8 +47,21 @@ class DashNavbar extends Component {
     this.handlePatientSubmit = this.handlePatientSubmit.bind(this);
     this.handleNurseSubmit = this.handleNurseSubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.makeListPatients = this.makeListPatients.bind(this);
+    this.makeListRooms = this.makeListRooms.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.handleAssign = this.handleAssign.bind(this);
+    this.activatePatientRobot=this.activatePatientRobot.bind(this);
 
+    
   }
+
+  activatePatientRobot(patientId,robotNumber){
+    alert("patient ID: "+patientId)
+    alert("robot number "+robotNumber)
+    this.props.postAssign({patientId:patientId,robotnumber:robotNumber});
+}
+      
 
   handleLogout() {
     this.props.logoutUser();
@@ -91,6 +95,13 @@ class DashNavbar extends Component {
     });
   }
 
+  handleAssign(){
+    console.log("patient id "+ this.state.chosenPatientid)
+    console.log("robot id "+ this.state.chosenRobotid)
+    this.activatePatientRobot(this.state.chosenPatientid,this.state.chosenRobotid)
+
+  }
+
   toggleNav() {
     this.setState({
       isNavOpen: !this.state.isNavOpen
@@ -110,15 +121,40 @@ class DashNavbar extends Component {
   }
 
   toggleAssignModal() {
+    this.makeListPatients();
+    this.makeListRooms();
     this.setState({
       isAssignModalOpen: !this.state.isAssignModalOpen
     });
   }
 
   onChange(item, name) {
-    console.log("changed")
+    if(name==="robot"){
+      this.setState({chosenRobotid : item.value})
+    }
+    else{
+      this.setState({chosenPatientid : item.value})
+     
+    }
+  }
+  
+
+  makeListPatients(){
+    this.props.users.users.map((user,index)=>{
+      if(user.isActive==false){
+        this.state.listOfInactivePatients.push({label:user.firstname,value:user.patient})
+      }
+    })
   }
 
+  makeListRooms(){
+    console.log("all the robots : "+ JSON.stringify(this.props.robots.robots))
+    this.props.robots.robots.map((robot)=>{
+      if(robot.isOccupied==false){
+        this.state.listOfInactiveRooms.push({label:robot.roomNumber,value:robot.number})
+      }
+    })
+  }
 
   render() {
     return (
@@ -252,23 +288,26 @@ class DashNavbar extends Component {
 
         <Modal isOpen={this.state.isAssignModalOpen} toggle={this.toggleAssignModal}>
           <ModalHeader toggle={this.toggleAssignModal}>Assign Robot</ModalHeader>
+          
           <ModalBody>
+          <Form onSubmit={this.handleAssign}>
             <Dropdown
-              name="location"
-              title="Select location"
-              list={this.props.users.inactiveusers.map((user, index) => (user.firstname))}
+              name="patient"
+              title="Select Patient"
+              list={this.state.listOfInactivePatients}
               onChange={this.onChange}
             />
             <Dropdown
-              name="location"
-              title="Select location"
-              list={locations}
+              name="robot"
+              title="Select Room Number"
+              list={this.state.listOfInactiveRooms}
               onChange={this.onChange}
               styles={{
                 headerTitle: { size: 10 }
               }}
             />
-            <Button>ASSIGN</Button>
+            <Button type="submit">ASSIGN</Button>
+            </Form>
           </ModalBody>
         </Modal>
 

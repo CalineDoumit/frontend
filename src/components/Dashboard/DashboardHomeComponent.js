@@ -21,7 +21,7 @@ class DashboardHome extends Component {
     render() {
         return (
             <div>
-                <Navbar postPatient={this.props.postPatient} users={this.props.users} postNurse={this.props.postNurse} logoutUser={this.props.logoutUser}/>
+                <Navbar postPatient={this.props.postPatient} users={this.props.users} robots={this.props.robots} postNurse={this.props.postNurse} logoutUser={this.props.logoutUser}  postAssign={this.props.postAssign}/>
                 <div className="container">
                     <div className="py-4">
                         <h1>Users</h1>
@@ -71,4 +71,5 @@ class DashboardHome extends Component {
         );
     }
 }
-export default DashboardHome
+export default DashboardHome;
+
