@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { Auth } from "../../redux/auth";
 import { withRouter } from "react-router-dom";
-
+import { connect } from "react-redux";
 
 
 class Login extends Component {
@@ -23,6 +23,7 @@ class Login extends Component {
 
 
     handleLogin(event) {
+        event.preventDefault();
         this.props.loginUser({ username: this.username.value, password: this.password.value })
             .then(() => {
                 console.log("Step 1: setting state")
@@ -30,7 +31,6 @@ class Login extends Component {
                     uRole: localStorage.getItem('userRole')
                 });
                 console.log("step 2 alerts")
-                alert("uRole = " + localStorage.getItem('userRole'));
                 console.log("step 3 redirecting")
                 if (localStorage.getItem('userRole') == 'admin')
                     {console.log("ATTENTION mch lezim nfout hon")
@@ -40,10 +40,17 @@ class Login extends Component {
                     {console.log("step 4 we entered the correct if")
                     this.props.history.push("/nursemenu");
                 return;}
+                else if (localStorage.getItem('userRole') == 'patient')
+                {console.log("step 4 we entered the correct if")
+                let u= localStorage.getItem('user');
+                this.props.history.push("/patientmenu/"+JSON.parse(u).patient);
+                
+
+            return;}
                 else
                     return
             })
-        event.preventDefault();
+        
         /* this.setState({
              redirect: true
          })*/

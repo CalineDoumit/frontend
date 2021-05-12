@@ -3,6 +3,20 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {logoutUser} from '../redux/ActionCreators';
+import {withRouter } from 'react-router-dom'
+
+
+
+const mapStateToProps = state => {
+    return {
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => ({
+    logoutUser: (creds) => dispatch(logoutUser(creds)),    
+  })
 
 class Header extends Component {
     constructor(props) {
@@ -30,14 +44,14 @@ class Header extends Component {
     }
     handleLogin(event) {
         this.toggleModal();
-        alert("Username: " + this.username.value + " Password: " + this.password.value
-            + " Remember: " + this.remember.checked);
         event.preventDefault();
 
     }
 
     handleLogout() {
-        this.props.logoutUser();
+       this.props.logoutUser();
+        this.props.history.push("/login");
+        return;
     }
 
 
@@ -106,4 +120,5 @@ class Header extends Component {
     }
 }
 
-export default Header;
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

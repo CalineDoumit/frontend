@@ -111,6 +111,7 @@ export const loginUser = (creds) => (dispatch) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('creds', JSON.stringify(creds));
         localStorage.setItem('userRole', response.userRole);
+        localStorage.setItem('user', JSON.stringify(response.user));
         // Dispatch the success action
         dispatch(receiveLogin(response));
         console.log("----------------------------");
@@ -137,7 +138,8 @@ export const requestLogin = (creds) => {
 export const receiveLogin = (response) => {
   return {
     type: ActionTypes.LOGIN_SUCCESS,
-    token: response.token
+    token: response.token,
+    user:response.user
   }
 }
 
@@ -193,14 +195,18 @@ export const postDeactivatePatient = (patientId) => (dispatch) => {
     method: "POST",
     body: '',
     headers: {
-      'Content-Type':'application/json'
+      'Content-Type':'application/json',
+      'Access-Control-Allow-Origin': '*' 
+      
     },
     credentials: "same-origin"
   })
     .then(response => {
       if (response.ok) {
+        console.log("RESPONSE IS OKAY")
         return response;
       } else {
+        console.log("ERRORRRR")
         var error = new Error('Error ' + response.status + ': ' + response.statusText);
         error.response = response;
         throw error;
@@ -214,6 +220,8 @@ export const postDeactivatePatient = (patientId) => (dispatch) => {
     .catch(error => {console.log("Patient Desactivated"+ error.message)})
     //dispatch(favoritesFailed(error.message))
 }
+
+
 
 /*
 export const fetchUser = (userId) => (dispatch) => {
@@ -243,7 +251,6 @@ export const fetchUser = (userId) => (dispatch) => {
 
 
 export const fetchRobotGo = (robotId) => (dispatch) => {
-  alert("fetna bel fetch")
   return fetch(baseUrl + 'robots/' + robotId+ '/RobotGo')
 
   .then(response => {
@@ -265,7 +272,6 @@ export const fetchRobotGo = (robotId) => (dispatch) => {
 }
 
 export const fetchRobotCome = (robotId) => (dispatch) => {
-  alert("fetna bel fetch")
   return fetch(baseUrl + 'robots/' + robotId+ '/RobotCome')
 
   .then(response => {
@@ -287,7 +293,6 @@ export const fetchRobotCome = (robotId) => (dispatch) => {
 }
 
 export const fetchRobotStop = (robotId) => (dispatch) => {
-  alert("fetna bel fetch")
   return fetch(baseUrl + 'robots/' + robotId+ '/RobotStop')
 
   .then(response => {
@@ -309,7 +314,6 @@ export const fetchRobotStop = (robotId) => (dispatch) => {
 }
 
 export const postPatient = (values) => (dispatch) => {
-  alert("values:",values)
   return fetch(baseUrl + 'users/createPatient', {
       method: "POST",
       body: JSON.stringify(values),
@@ -336,7 +340,6 @@ export const postPatient = (values) => (dispatch) => {
 };
 
 export const postNurse = (values) => (dispatch) => {
-  alert("values:",values)
   return fetch(baseUrl + 'users/createNurse', {
       method: "POST",
       body: JSON.stringify(values),
@@ -346,7 +349,10 @@ export const postNurse = (values) => (dispatch) => {
       credentials: "same-origin"
   })
   .then(response => {
+
       if (response.ok) {
+
+
         return response;
       } else {
         var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -384,7 +390,7 @@ export const postNurse = (values) => (dispatch) => {
           console.error('There was an error!', error);
       });
   }*/
-
+/*
   export const fetchPatientsNotActive = () => (dispatch) => {
   
     return fetch(baseUrl + 'users/PatientIsNotActive')
@@ -407,11 +413,13 @@ export const postNurse = (values) => (dispatch) => {
       .then(users => dispatch(addInactiveUsers(users)))
      //.catch(error => dispatch(robotsFailed(error.message)));
   }
+  
 
   export const addInactiveUsers = (users) => ({
     type: ActionTypes.ADD_INACTIVEUSERS,
     payload: users
   });
+  */
 
 
   
@@ -427,6 +435,7 @@ export const receiveLogout = () => {
   }
 }
 
+
 // Logs the user out
 export const logoutUser = () => (dispatch) => {
   dispatch(requestLogout())
@@ -439,7 +448,6 @@ export const logoutUser = () => (dispatch) => {
 
 export const fetchCorrespondingPatient = (robotId) => (dispatch) => {
   //dispatch(patientsLoading());
-  //alert("robotID: "+ robotId)
   return fetch(baseUrl +'robots/'+robotId+ '/getCorrespondingPatient')
     .then(response => {
       if (response.ok) {
@@ -471,7 +479,6 @@ export const addCorrespondingPatient = (patient) => {
 
 
 export const postAssign = (values) => (dispatch) => {
-  alert(" in action Creator"+JSON.stringify(values))
   return fetch(baseUrl + 'users/AssignRobot' , {
     method: "POST",
     body: JSON.stringify(values),
@@ -486,15 +493,12 @@ export const postAssign = (values) => (dispatch) => {
       } else {
         var error = new Error('Error ' + response.status + ': ' + response.statusText);
         error.response = response;
-        alert("error1")
         throw error;
       }
     },
       error => {
-        alert("error2")
         throw error;
       })
-    .then(response => {response.json(); alert("response: "+ response.json())})
     .then(() => { console.log("Activated"); })
     .catch(error => {console.log("Activated Error"+ error.message)})
 }

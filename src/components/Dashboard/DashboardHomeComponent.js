@@ -12,7 +12,6 @@ class DashboardHome extends Component {
     deactivatePatient(patientId){
         console.log("patient ID: "+patientId)
         this.props.postDeactivatePatient(patientId);
-        alert("patient id: "+patientId)
     }
           
     
@@ -21,7 +20,7 @@ class DashboardHome extends Component {
     render() {
         return (
             <div>
-                <Navbar postPatient={this.props.postPatient} users={this.props.users} robots={this.props.robots} postNurse={this.props.postNurse} logoutUser={this.props.logoutUser}  postAssign={this.props.postAssign}/>
+                <Navbar postPatient={this.props.postPatient} users={this.props.users} robots={this.props.robots}  logoutUser={this.props.logoutUser}  postAssign={this.props.postAssign}/>
                 <div className="container">
                     <div className="py-4">
                         <h1>Users</h1>

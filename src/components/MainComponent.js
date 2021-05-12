@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NurseMenu from './NurseMenuComponent';
 import PatientDetail from './PatientDetailComponent';
-import Signupp from './signup';
+import PatientMenu from './PatientMenuComponent';
 import Login from './Login/LoginComponent';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
@@ -39,6 +39,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
+
 class Main extends Component {
   componentDidMount() {
     this.props.fetchRobots();
@@ -46,8 +47,17 @@ class Main extends Component {
     this.props.fetchUsers();
 
   }
+  
 
   render() {
+    const PatientMenuWithId=({match})=>{
+     return( <PatientMenu 
+      myuser={this.props.users.users.filter((user)=>user.patient===match.params.patientId)}
+      mypatient={this.props.patients.patients.filter((patient)=>patient._id===match.params.patientId)}
+      />)
+    }
+
+
     const NursePage = () => {
       return (
         <div>
@@ -96,22 +106,17 @@ class Main extends Component {
       );
     };
 
-    const SignUp = ({ match }) => {
-      return (
-        <signup />
-      );
-    };
 
     return (
       <div>
         <Switch>
           <Route exact path='/nursemenu' component={NursePage} />
           <Route exact path='/nursemenu/:robotId' component={RobotWithId} />
-          <Route exact path='/signup' component={() => <Signupp />} />
           <Route exact path='/dashboard' component={() => <DashboardHome users={this.props.users} robots={this.props.robots} postDeactivatePatient={this.props.postDeactivatePatient} postAssign={this.props.postAssign} 
-          postPatient={this.props.postPatient} postNurse={this.props.postNurse}  logoutUser={this.props.logoutUser}  />} />
+          postPatient={this.props.postPatient}  logoutUser={this.props.logoutUser}  />} />
           <Route exact path='/login' component={() => <Login auth={this.props.auth} loginUser={this.props.loginUser}
           />} />
+          <Route exact path='/patientmenu/:patientId' component={PatientMenuWithId }/>
           <Redirect to="/login" />
         </Switch>
       </div>
@@ -120,3 +125,4 @@ class Main extends Component {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+

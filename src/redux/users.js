@@ -4,21 +4,19 @@ export const Users = (state = {
     isLoading: true,
     errMess: null,
     users: [],
-    inactiveusers: []
+
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_USERS:
-            return { ...state, isLoading: false, errMess: null, users: action.payload, inactiveusers: [] };
+            return { ...state, isLoading: false, errMess: null, users: action.payload };
 
         case ActionTypes.USERS_LOADING:
-            return { ...state, isLoading: true, errMess: null, users: [], inactiveusers: [] };
+            return { ...state, isLoading: true, errMess: null, users: [] };
 
         case ActionTypes.USERS_FAILED:
-            return { ...state, isLoading: false, errMess: action.payload, users: [], inactiveusers: [] };
+            return { ...state, isLoading: false, errMess: action.payload, users: [] };
 
-        case ActionTypes.ADD_INACTIVEUSERS:
-            return { ...state, isLoading: false, errMess: null, users: [], inactiveusers: action.payload };
-
+        
         default:
             return state;
     }
